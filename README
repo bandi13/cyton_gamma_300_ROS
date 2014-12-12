@@ -1,3 +1,12 @@
+This project contains a ROS workspace that has been configured to work with the Cyton Gamma 300 robotic arm. I suspect it should work much better with the Cyton Gamma 1500, but I haven't tested that. My main contribution is the cyton_controllers and the cyton_gamma_1500_setupassistant_andras2. The setupassistant folder just contains the MoveIt files. The cyton_controllers configures the dynamixel_motor driver to produce the proper messages and handles necessary to interface with MoveIt.
+
+The following packages were pulled from other github repositories:
+cyton_gamma_1500_description
+dynamixel_motor
+industrial_core
+moveit_plugins
+
+
 First you'll need to run catkin_make in the ROS_ws folder. Then you'll need to source ROS_ws/devel/setup.bash like usual.
 
 Starting up, you'll first:
