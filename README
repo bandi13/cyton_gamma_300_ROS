@@ -1,0 +1,18 @@
+First you'll need to run catkin_make in the ROS_ws folder. Then you'll need to source ROS_ws/devel/setup.bash like usual.
+
+Starting up, you'll first:
+roslaunch cyton_controllers controller_manager.launch
+
+Then make sure all the motors have been detected. This should only take a couple seconds. Once it's done, run:
+roslaunch cyton_controllers start_controller.launch
+
+This launches the scripts that will create subscribers for each of the motors. Once they're launched, you'll get the prompt back. This is normal. You can run a script to make the arm stand up with:
+ROS_ws/src/standup.sh
+
+The arm should move at this point to the straight up position. You'll now want to enable feedback of motor states with:
+rosrun cyton_controllers dynamixel_joint_state_publisher.py
+
+Now you have feedback of the motors so you can start the MoveIt model environment:
+roslaunch cyton_gamma_1500_setupassistant_andras2 moveit_planning_execution.launch
+
+You'll notice that it's the Cyton Gamma 1500 model that I've used here. This is a work in progress. The model isn't quite complete, but I do believe all the joints are correctly set up. So it's just a matter of tweaking the model to correctly understand the state of the motors.
