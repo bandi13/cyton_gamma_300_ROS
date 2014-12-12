@@ -1,0 +1,269 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="cyton_gamma_1500">
+
+  <xacro:macro name="base_footprint" params="prefix">
+    <link name="base_footprint">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.001" />
+        </geometry>
+        <material name="white">
+          <color rgba="1 1 1 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="base_joint" type="fixed">
+      <parent link="base_footprint" />
+      <child link="${prefix}base_link" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="cyton_gamma_1500" params="prefix virtual_ee">
+    <link name="${prefix}base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/base.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0.0115 0.047"/>
+        <geometry>
+          <box size="0.154 0.177 0.094"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}shoulder_roll_joint" type="revolute">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}shoulder_roll" />
+      <origin xyz="0 0 0.05315" rpy="0 0 0" />
+      <limit lower="-2.618" upper="2.618" effort="100.0" velocity="1.0" />
+      <axis xyz="0 0 1" />
+    </joint>
+
+    <link name="${prefix}shoulder_roll">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0.384"/>
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/shoulder_roll.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.069 0.0587"/>
+        <geometry>
+          <box size="0.09829 0.18143 0.08392"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}shoulder_pitch_joint" type="revolute">
+      <parent link="${prefix}shoulder_roll" />
+      <child link="${prefix}shoulder_pitch" />
+      <origin xyz="0.0205 0 0.12435" rpy="0 0 0" />
+      <limit lower="-1.8326" upper="1.8326" effort="100.0" velocity="1.0" />
+      <axis xyz="1 0 0" />
+    </joint>
+
+    <link name="${prefix}shoulder_pitch">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/shoulder_pitch.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.001 0.064 0.1745"/>
+        <geometry>
+          <box size="0.0709 0.19363 0.083"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}shoulder_yaw_joint" type="revolute">
+      <parent link="${prefix}shoulder_pitch" />
+      <child link="${prefix}shoulder_yaw" />
+      <origin xyz="-0.0215 -0.0205 0.1255" rpy="0 0 0" />
+      <limit lower="-1.8326" upper="1.8326" effort="100.0" velocity="1.0" />
+      <axis xyz="0 -1 0" />
+    </joint>
+
+    <link name="${prefix}shoulder_yaw">
+      <visual>
+        <origin xyz="0 0 0.0" rpy="1.5708 0 -1.5708" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/shoulder_yaw.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.0225 0.039 0.3068"/>
+        <geometry>
+          <box size="0.0717 0.1846 0.0756"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}elbow_pitch_joint" type="revolute">
+      <parent link="${prefix}shoulder_yaw" />
+      <child link="${prefix}elbow_pitch" />
+      <origin xyz="0.018 0.0206 0.1158" rpy="0 0 0" />
+      <limit lower="-1.8326" upper="1.8326" effort="100.0" velocity="1.0" />
+      <axis xyz="1 0 0" />
+    </joint>
+
+    <link name="${prefix}elbow_pitch">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 3.1416" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/elbow_pitch.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0346 0.0461 0.4228"/>
+        <geometry>
+          <box size="0.0549 0.1557 0.076"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}elbow_yaw_joint" type="revolute">
+      <parent link="${prefix}elbow_pitch" />
+      <child link="${prefix}elbow_yaw" />
+      <origin xyz="-0.0171 -0.018 0.09746" rpy="0 0 0" />
+      <limit lower="-1.8326" upper="1.8326" effort="100.0" velocity="1.0" />
+      <axis xyz="0 -1 0" />
+    </joint>
+
+    <link name="${prefix}elbow_yaw">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 1.5708" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/elbow_yaw.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0172 0.0209 0.516"/>
+        <geometry>
+          <box size="0.0535 0.1160 0.0402"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}wrist_pitch_joint" type="revolute">
+      <parent link="${prefix}elbow_yaw" />
+      <child link="${prefix}wrist_pitch" />
+      <origin xyz="0.02626 0.018 0.0718" rpy="0 0 0" />
+      <limit lower="-1.8326" upper="1.8326" effort="100.0" velocity="1.0" />
+      <axis xyz="1 0 0" />
+    </joint>
+
+    <link name="${prefix}wrist_pitch">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 1.5708" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/wrist_pitch.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0257 0.0118 0.5617"/>
+        <geometry>
+          <box size="0.026 0.0435 0.05185"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}wrist_roll_joint" type="revolute">
+      <parent link="${prefix}wrist_pitch" />
+      <child link="${prefix}wrist_roll" />
+      <origin xyz="-0.026255 0 0.051425" rpy="0 0 0" />
+      <limit lower="-2.61799" upper="2.61799" effort="100.0" velocity="1.0" />
+      <axis xyz="0 0 1" />
+    </joint>
+
+    <link name="${prefix}wrist_roll">
+      <visual>
+        <origin xyz="0 0 0" rpy="3.1416 0 -1.5708" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/wrist_roll.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.0063 -0.0014 0.6102"/>
+        <geometry>
+          <box size="0.0518 0.0723 0.1004"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}gripper_joint" type="prismatic">
+      <parent link="${prefix}wrist_roll" />
+      <child link="${prefix}gripper_finger1" />
+      <origin xyz="-0.01331 0.00485 0.077225" rpy="0 0 0" />
+      <limit lower="-0.008" upper="0.008" effort="100.0" velocity="1.0" />
+      <axis xyz="1 0 0" />
+    </joint>
+
+    <link name="${prefix}gripper_finger1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/gripper_finger1.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.0167 0.0172 0.7254"/>
+        <geometry>
+          <box size="0.015 0.0229 0.0475"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}gripper_joint2" type="prismatic">
+      <parent link="${prefix}wrist_roll" />
+      <child link="${prefix}gripper_finger2" />
+      <origin xyz="0.0098 0.00485 0.077225" rpy="0 0 0" />
+      <limit lower="-0.008" upper="0.008" effort="100.0" velocity="1.0" />
+      <mimic joint="${prefix}gripper_joint" multiplier="-1"/>
+      <axis xyz="1 0 0" />
+    </joint>
+
+    <link name="${prefix}gripper_finger2">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://cyton_gamma_1500_description/meshes/gripper_finger2.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0132 0.0172 0.7254"/>
+        <geometry>
+          <box size="0.015 0.0229 0.0475"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:if value="${virtual_ee}"> <!-- virtual end-effector -->
+      <joint name="${prefix}virtual_endeffector_joint" type="fixed">
+        <parent link="${prefix}wrist_roll" />
+        <child link="${prefix}virtual_endeffector" />
+        <origin xyz="-0.002316 0.0079 0.079425" rpy="0 0 0" />
+      </joint>
+
+      <link name="${prefix}virtual_endeffector">
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <sphere radius="0.002" />
+          </geometry>
+          <material name="grey">
+            <color rgba="0.7 0.7 0.7 0.8" />
+          </material>
+        </visual>
+      </link>
+    </xacro:if>
+  </xacro:macro>
+
+</robot>

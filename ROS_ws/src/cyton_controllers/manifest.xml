@@ -1,0 +1,15 @@
+<package>
+  <description brief="cyton_controllers">
+
+     cyton_controllers
+
+  </description>
+  <author>Andras Fekete</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/cyton_controllers</url>
+  <depend package="dynamixel_controllers"/>
+
+</package>
+
+

@@ -1,0 +1,18 @@
+controller_list:
+  - name: cyton_joint_trajectory_action_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - base_joint
+      - shoulder_roll_joint
+      - shoulder_pitch_joint
+      - shoulder_yaw_joint
+      - elbow_pitch_joint
+      - elbow_yaw_joint
+      - wrist_pitch_joint
+      - wrist_roll_joint
+  - name: andras_gripper_planning_group_controller
+    action_ns: gripper_action
+    type: GripperCommand
+    joints:
+      - gripper_joint

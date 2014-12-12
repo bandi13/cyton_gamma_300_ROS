@@ -1,0 +1,6 @@
+<launch>
+	<include file="$(find cyton_controllers)/launch/controller_manager.launch />
+	<include file="$(find cyton_controllers)/launch/start_controller.launch />
+	<node name="dynamixel_joint_state_publisher_script" pkg="cyton_controllers" type="dynamixel_joint_state_publisher.py"/>
+	<include file="$(find cyton_gamma_1500_setupassistant_andras2)/launch/moveit_planning_execution.launch />
+</launch>

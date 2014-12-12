@@ -1,0 +1,9 @@
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+echo "Setting cyton package path=$DIR"
+
+export ROS_PACKAGE_PATH=$DIR:$ROS_PACKAGE_PATH
+export CYTON_DIR="$DIR/cyton"
+export CYTON_INC="$CYTON_DIR/include/"
+export CYTON_LIB="$CYTON_DIR/lib/"
+export CYTON_BIN="$CYTON_DIR/bin/"
+export CYTON_EE_FILE="$CYTON_DIR/bin/guide_frame.txt"

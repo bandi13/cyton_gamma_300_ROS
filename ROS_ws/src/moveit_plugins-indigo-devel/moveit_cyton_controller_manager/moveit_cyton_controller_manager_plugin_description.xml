@@ -1,0 +1,11 @@
+<library path="libmoveit_cyton_controller_manager">
+
+  <class name="moveit_cyton_controller_manager/MoveItCytonControllerManager"
+         type="moveit_cyton_controller_manager::MoveItCytonControllerManager"
+         base_class_type="moveit_controller_manager::MoveItControllerManager">
+    <description>
+      An cyton controller for MoveIt. This is not functional code, but can serve as a starting point for simple controllers.
+    </description>
+  </class>
+
+</library>

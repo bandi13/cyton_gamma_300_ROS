@@ -1,0 +1,112 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="cyton_gamma_1500">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="manipulator_planning_group">
+        <joint name="FixedBase" />
+        <joint name="base_joint" />
+        <joint name="shoulder_roll_joint" />
+        <joint name="shoulder_pitch_joint" />
+        <joint name="shoulder_yaw_joint" />
+        <joint name="elbow_pitch_joint" />
+        <joint name="elbow_yaw_joint" />
+        <joint name="wrist_pitch_joint" />
+        <joint name="wrist_roll_joint" />
+    </group>
+    <group name="gripper_planning_group">
+        <joint name="gripper_joint" />
+        <joint name="gripper_joint2" />
+        <joint name="virtual_endeffector_joint" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="straightUp_pose" group="manipulator_planning_group">
+        <joint name="elbow_pitch_joint" value="0" />
+        <joint name="elbow_yaw_joint" value="0" />
+        <joint name="shoulder_pitch_joint" value="0" />
+        <joint name="shoulder_roll_joint" value="0" />
+        <joint name="shoulder_yaw_joint" value="0" />
+        <joint name="wrist_pitch_joint" value="0" />
+        <joint name="wrist_roll_joint" value="0" />
+    </group_state>
+    <group_state name="openHand_pose" group="gripper_planning_group">
+        <joint name="gripper_joint" value="-0.008" />
+        <joint name="gripper_joint2" value="0.008" />
+    </group_state>
+    <group_state name="closeHand_pose" group="gripper_planning_group">
+        <joint name="gripper_joint" value="0.008" />
+        <joint name="gripper_joint2" value="-0.008" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="end_effector" parent_link="wrist_roll" group="gripper_planning_group" parent_group="manipulator_planning_group" />
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="FixedBase" type="fixed" parent_frame="world" child_link="base_footprint" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base_footprint" link2="base_link" reason="Adjacent" />
+    <disable_collisions link1="base_footprint" link2="elbow_pitch" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="elbow_yaw" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="gripper_finger1" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="gripper_finger2" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="shoulder_pitch" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="shoulder_roll" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="shoulder_yaw" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="virtual_endeffector" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wrist_roll" reason="Never" />
+    <disable_collisions link1="base_link" link2="elbow_pitch" reason="Never" />
+    <disable_collisions link1="base_link" link2="elbow_yaw" reason="Never" />
+    <disable_collisions link1="base_link" link2="gripper_finger1" reason="Never" />
+    <disable_collisions link1="base_link" link2="gripper_finger2" reason="Never" />
+    <disable_collisions link1="base_link" link2="shoulder_roll" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="shoulder_yaw" reason="Never" />
+    <disable_collisions link1="base_link" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="base_link" link2="wrist_roll" reason="Never" />
+    <disable_collisions link1="elbow_pitch" link2="elbow_yaw" reason="Adjacent" />
+    <disable_collisions link1="elbow_pitch" link2="gripper_finger1" reason="Never" />
+    <disable_collisions link1="elbow_pitch" link2="gripper_finger2" reason="Never" />
+    <disable_collisions link1="elbow_pitch" link2="shoulder_pitch" reason="Never" />
+    <disable_collisions link1="elbow_pitch" link2="shoulder_roll" reason="Never" />
+    <disable_collisions link1="elbow_pitch" link2="shoulder_yaw" reason="Adjacent" />
+    <disable_collisions link1="elbow_pitch" link2="virtual_endeffector" reason="Never" />
+    <disable_collisions link1="elbow_pitch" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="elbow_pitch" link2="wrist_roll" reason="Never" />
+    <disable_collisions link1="elbow_yaw" link2="gripper_finger1" reason="Never" />
+    <disable_collisions link1="elbow_yaw" link2="gripper_finger2" reason="Never" />
+    <disable_collisions link1="elbow_yaw" link2="shoulder_pitch" reason="Never" />
+    <disable_collisions link1="elbow_yaw" link2="shoulder_roll" reason="Never" />
+    <disable_collisions link1="elbow_yaw" link2="shoulder_yaw" reason="Never" />
+    <disable_collisions link1="elbow_yaw" link2="virtual_endeffector" reason="Never" />
+    <disable_collisions link1="elbow_yaw" link2="wrist_pitch" reason="Adjacent" />
+    <disable_collisions link1="elbow_yaw" link2="wrist_roll" reason="Never" />
+    <disable_collisions link1="gripper_finger1" link2="gripper_finger2" reason="Never" />
+    <disable_collisions link1="gripper_finger1" link2="shoulder_pitch" reason="Never" />
+    <disable_collisions link1="gripper_finger1" link2="shoulder_roll" reason="Never" />
+    <disable_collisions link1="gripper_finger1" link2="shoulder_yaw" reason="Never" />
+    <disable_collisions link1="gripper_finger1" link2="virtual_endeffector" reason="Never" />
+    <disable_collisions link1="gripper_finger1" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="gripper_finger1" link2="wrist_roll" reason="Adjacent" />
+    <disable_collisions link1="gripper_finger2" link2="shoulder_pitch" reason="Never" />
+    <disable_collisions link1="gripper_finger2" link2="shoulder_roll" reason="Never" />
+    <disable_collisions link1="gripper_finger2" link2="shoulder_yaw" reason="Never" />
+    <disable_collisions link1="gripper_finger2" link2="virtual_endeffector" reason="Never" />
+    <disable_collisions link1="gripper_finger2" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="gripper_finger2" link2="wrist_roll" reason="Adjacent" />
+    <disable_collisions link1="shoulder_pitch" link2="shoulder_roll" reason="Adjacent" />
+    <disable_collisions link1="shoulder_pitch" link2="shoulder_yaw" reason="Adjacent" />
+    <disable_collisions link1="shoulder_pitch" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="shoulder_pitch" link2="wrist_roll" reason="Never" />
+    <disable_collisions link1="shoulder_roll" link2="shoulder_yaw" reason="Never" />
+    <disable_collisions link1="shoulder_roll" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="shoulder_roll" link2="wrist_roll" reason="Never" />
+    <disable_collisions link1="shoulder_yaw" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="shoulder_yaw" link2="wrist_roll" reason="Never" />
+    <disable_collisions link1="virtual_endeffector" link2="wrist_pitch" reason="Never" />
+    <disable_collisions link1="virtual_endeffector" link2="wrist_roll" reason="Adjacent" />
+    <disable_collisions link1="wrist_pitch" link2="wrist_roll" reason="Adjacent" />
+</robot>

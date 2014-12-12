@@ -1,0 +1,26 @@
+<launch>
+	<rosparam file="$(find cyton_controllers)/cyton_controller.yaml" command="load"/>
+	<node name="one_cyton_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py" args="--manager=cyton_manager --port port_0 --type=simple
+		shoulder_roll_position_controller
+		shoulder_pitch_position_controller
+		shoulder_yaw_position_controller
+		elbow_pitch_position_controller
+		elbow_yaw_position_controller
+		wrist_pitch_position_controller
+		wrist_roll_position_controller
+		gripper_position_controller
+		"
+		output="screen"/>
+
+	  <node name="one_cyton_action_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py" args="--manager=cyton_manager --type=meta cyton_joint_trajectory_action_controller
+		shoulder_roll_position_controller
+		shoulder_pitch_position_controller
+		shoulder_yaw_position_controller
+		elbow_pitch_position_controller
+		elbow_yaw_position_controller
+		wrist_pitch_position_controller
+		wrist_roll_position_controller
+		gripper_position_controller
+		"
+		output="screen"/>
+</launch>
